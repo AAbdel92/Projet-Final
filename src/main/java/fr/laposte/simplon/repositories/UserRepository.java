@@ -7,5 +7,7 @@ import fr.laposte.simplon.models.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
+	
+	public Iterable<User> findByRoleName(String roleName);
 
 }

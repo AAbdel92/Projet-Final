@@ -17,12 +17,23 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public List<User> getAll() {
+	public List<User> getAll() {		
+		Iterable<User> request = repository.findAll();			
+		List<User> result = filterRequest(request);			
+		return result;
+	}
+	
+	public List<User> getAllWithRoleName(String roleName) {		
+		Iterable<User> request = repository.findByRoleName(roleName);
+		List<User> result = filterRequest(request);		
+		return result;
+	}
+	
+	private List<User> filterRequest(Iterable<User> request) {
 		List<User> result = new ArrayList<>();
-		Iterable<User> request = repository.findAll();		
-		
 		for (User item : request) {
 			User user = new User();
+			user.setId(item.getId());
 			user.setFirstname(item.getFirstname());
 			user.setLastname(item.getLastname());
 			user.setEmail(item.getEmail());
