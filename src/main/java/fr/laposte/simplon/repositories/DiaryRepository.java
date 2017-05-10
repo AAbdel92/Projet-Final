@@ -7,5 +7,7 @@ import fr.laposte.simplon.models.Diary;
 
 @Repository
 public interface DiaryRepository extends CrudRepository<Diary, Integer> {
+	
+	public Iterable<Diary> findByPromoId(int promoId);
 
 }

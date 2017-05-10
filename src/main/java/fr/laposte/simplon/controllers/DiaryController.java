@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.laposte.simplon.models.Diary;
-import fr.laposte.simplon.models.Role;
 import fr.laposte.simplon.services.DiaryService;
 
 @RestController
@@ -26,9 +26,15 @@ public class DiaryController {
 		return service.saveOne(diary);
 	}
 	//@Formateur, @Tuteur, @Apprenant
+	@GetMapping("role/{roleName}/promo/{promoId}")
+	public List<Diary> getAllByRole(@PathVariable String roleName, @PathVariable int promoId) {
+		return service.getAllByRole(roleName, promoId);
+	}
+	
+	//@Formateur, @Tuteur, @Apprenant
 	@GetMapping
-	public List<Diary> getAll(@RequestBody Role role) {
-		return service.getAll(role.getName());
+	public List<Diary> getAllByUser() {
+		return service.getAllByUser();
 	}
 	
 

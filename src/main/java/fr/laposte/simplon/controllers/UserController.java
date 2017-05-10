@@ -21,6 +21,12 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
+	//@Admin, @Tuteur, @Formateur, @Apprenant
+	@GetMapping("login")
+	public User onLogin(@RequestBody User user) {
+		return service.onLogin(user);
+	}
+	
 	//@Admin
 	@GetMapping
 	public List<User> getAll() {
@@ -39,6 +45,7 @@ public class UserController {
 		return service.saveOne(user);
 	}
 	
+	//Inutile ?
 	//@Admin
 	 @PutMapping("osef")
 	 public User updatePromoId(@RequestBody User user) {

@@ -22,8 +22,8 @@ public class DiaryService {
 		return repository.save(diary);
 	}
 	
-	public List<Diary> getAll(String roleName) {
-		Iterable<Diary> request = repository.findAll();
+	public List<Diary> getAllByRole(String roleName, int promoId) {
+		Iterable<Diary> request = repository.findByPromoId(promoId);
 		List<Diary> result;
 		if ("Formateur".equals(roleName)) {
 			result = filterForFormateur(request);
@@ -32,6 +32,10 @@ public class DiaryService {
 		} 
 		
 		return result;
+	}
+	
+	public List<Diary> getAllByUser() {
+		return null;
 	}
 	
 	private List<Diary> filterForFormateur(Iterable<Diary> request) {

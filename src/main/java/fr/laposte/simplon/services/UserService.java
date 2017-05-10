@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.laposte.simplon.models.Promo;
 import fr.laposte.simplon.models.Role;
 import fr.laposte.simplon.models.User;
 import fr.laposte.simplon.repositories.UserRepository;
@@ -17,6 +18,25 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository repository;
+	
+	public User onLogin(User user) {
+		User request = repository.findByEmail(user.getEmail());		
+		if (request.getPassword().equals(user.getPassword())) {			
+			user.setId(request.getId());
+			user.setFirstname(request.getFirstname());
+			user.setLastname(request.getLastname());
+			User pair = new User();
+			pair.setId(request.getPair().getId());
+			user.setPair(pair);
+			Promo promo = new Promo();
+			promo.setId(request.getPromo().getId());
+			user.setPromo(promo);
+			Role role = new Role();
+			role.setId(request.getRole().getId());
+			user.setRole(role);			
+		}
+		return user;
+	}
 	
 	public List<User> getAll() {		
 		Iterable<User> request = repository.findAll();			
