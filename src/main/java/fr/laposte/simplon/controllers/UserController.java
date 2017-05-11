@@ -22,7 +22,7 @@ public class UserController {
 	private UserService service;
 	
 	//@Admin, @Tuteur, @Formateur, @Apprenant
-	@GetMapping("login")
+	@PostMapping("login")
 	public User onLogin(@RequestBody User user) {
 		return service.onLogin(user);
 	}
