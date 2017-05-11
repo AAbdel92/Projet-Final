@@ -62,7 +62,25 @@ public class UserService {
 	}
 	
 	public User updateOne(User user) {
-		return repository.save(user);
+		User request = repository.findByEmail(user.getEmail());
+		request.setPassword(user.getPassword());
+		repository.save(request);
+		User result = new User();
+		Role role = new Role();		
+		role.setId(request.getRole().getId());
+		role.setName(request.getRole().getName());
+		Promo promo = new Promo();
+		promo.setId(request.getPromo().getId());
+		promo.setName(request.getPromo().getName());
+		result.setPromo(promo);
+		result.setRole(role);
+		result.setId(request.getId());
+		result.setFirstname(request.getFirstname());
+		result.setLastname(request.getLastname());
+		result.setPassword(request.getPassword());
+		result.setEmail(request.getEmail());		
+		
+		return result;
 		
 	}
 	
