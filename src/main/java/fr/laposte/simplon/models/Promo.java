@@ -31,7 +31,7 @@ public class Promo {
 	
 	private Date enddate;
 	
-	@OneToMany(mappedBy = "promo")
-	private List<User> users;
+//	@OneToMany(mappedBy = "promo")
+//	private List<User> users;
 
 }

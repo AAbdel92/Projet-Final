@@ -25,9 +25,6 @@ public class Answer {
 	
 	private String content;
 	
-	@OneToOne
-	private Question question;
-	
 	@ManyToOne
 	private User user;
 
