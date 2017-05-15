@@ -28,9 +28,9 @@ public class Diary {
 	
 	private String name;
 	
-	private Date startdate;
+	private Date startDate;
 	
-	private Date enddate;
+	private Date endDate;
 	
 	private String introduction;
 	

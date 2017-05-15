@@ -26,7 +26,7 @@ public class Question {
 	
 	private String content;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToOne
 	private Diary diary;
 	

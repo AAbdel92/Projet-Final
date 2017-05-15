@@ -28,9 +28,8 @@ public class User {
 	
 	private String lastname;
 	
-	private String password;
+	private String password;	
 	
-	@Column(name = "persomail")
 	private String email;
 		
 	@OneToOne

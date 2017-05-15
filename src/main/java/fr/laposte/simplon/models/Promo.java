@@ -27,9 +27,9 @@ public class Promo {
 	
 	private String name;
 	
-	private Date startdate;
+	private Date startDate;
 	
-	private Date enddate;
+	private Date endDate;
 	
 //	@OneToMany(mappedBy = "promo")
 //	private List<User> users;

@@ -28,7 +28,12 @@ public class PromoService {
 	}
 	
 	public Promo updateOne(Promo promo) {
-		return repository.save(promo);
+		Promo request = repository.findOne(promo.getId());
+		request.setName(promo.getName());
+		request.setStartDate(promo.getStartDate());
+		request.setEndDate(promo.getEndDate());
+		repository.save(request);
+		return promo;
 	}
 	
 	private List<Promo> filterForList(Iterable<Promo> request) {
@@ -37,8 +42,8 @@ public class PromoService {
 			Promo promo = new Promo();
 			promo.setId(item.getId());
 			promo.setName(item.getName());
-			promo.setStartdate(item.getStartdate());
-			promo.setEnddate(item.getEnddate());
+			promo.setStartDate(item.getStartDate());
+			promo.setEndDate(item.getEndDate());
 			
 			result.add(promo);
 		}

@@ -21,7 +21,10 @@ public class QuestionService {
 		Iterable<Question> request = repository.save(questions);
 		List<Question> result = new ArrayList<>();
 		for (Question question : request) {
-			result.add(question);
+			Question questionDTO = new Question();
+			questionDTO.setId(question.getId());
+			questionDTO.setContent(question.getContent());
+			result.add(questionDTO);
 		}
 		return result;
 	}

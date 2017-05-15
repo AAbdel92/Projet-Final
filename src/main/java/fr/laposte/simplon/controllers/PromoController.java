@@ -34,7 +34,7 @@ public class PromoController {
 	
 	//@Admin
 	@PutMapping
-	public Promo updateOne(Promo promo) {
+	public Promo updateOne(@RequestBody Promo promo) {
 		return service.updateOne(promo);
 	}
 
