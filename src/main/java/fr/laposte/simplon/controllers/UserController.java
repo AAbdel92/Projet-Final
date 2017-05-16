@@ -43,19 +43,11 @@ public class UserController {
 	@PostMapping
 	public User saveOne(@RequestBody User user) {
 		return service.saveOne(user);
-	}
-	
-	//Inutile ?
-	//@Admin
-	 @PutMapping("osef")
-	 public User updatePromoId(@RequestBody User user) {
-		 return service.updatePromoId(user);
-	 }
+	}	
 	 
 	 //@Admin
-	 @PutMapping
+	 @PutMapping("{userId}")
 	 public User updateOne(@RequestBody User user) {
 		 return service.updateOne(user);
 	 }
-
 }

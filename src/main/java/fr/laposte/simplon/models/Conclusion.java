@@ -25,11 +25,11 @@ public class Conclusion {
 	
 	private String content;
 	
-	@JsonIgnore
+	
 	@ManyToOne
 	private Diary diary;
 	
-	@JsonIgnore
+	
 	@ManyToOne
 	private User user;
 

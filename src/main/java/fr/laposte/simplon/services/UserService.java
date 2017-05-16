@@ -54,16 +54,14 @@ public class UserService {
 		return repository.save(user);
 	}
 	
-	public User updatePromoId(User user) {
-		User request = repository.findOne(user.getId());
-		request.setPromo(user.getPromo());
-		return repository.save(request);
-		
-	}
-	
 	public User updateOne(User user) {
 		User request = repository.findByEmail(user.getEmail());
 		request.setPassword(user.getPassword());
+		request.setFirstname(user.getFirstname());
+		request.setLastname(user.getLastname());
+		request.setPair(user.getPair());
+		request.setPromo(user.getPromo());
+		request.setRole(user.getRole());		
 		repository.save(request);
 		User result = new User();
 		Role role = new Role();		
