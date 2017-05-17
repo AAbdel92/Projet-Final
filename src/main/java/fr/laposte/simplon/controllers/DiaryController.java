@@ -31,11 +31,11 @@ public class DiaryController {
 	public List<Diary> getAll(@RequestParam boolean consulter,
 								@RequestParam String userRole,
 								@RequestParam int promoId,
-								@RequestParam int pairId){
+								@RequestParam int studentId){
 		List<Diary> result;
 		
 		if (consulter) {			
-			result = service.getForReading(userRole, promoId, pairId);		
+			result = service.getForReading(userRole, promoId, studentId);		
 			
 		} else {
 			result = service.getForEditing(userRole, promoId);

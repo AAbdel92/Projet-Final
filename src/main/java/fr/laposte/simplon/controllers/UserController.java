@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.laposte.simplon.models.User;
@@ -22,21 +23,19 @@ public class UserController {
 	private UserService service;
 	
 	//@Admin, @Tuteur, @Formateur, @Apprenant
-	@PostMapping("login")
-	public User onLogin(@RequestBody User user) {
-		return service.onLogin(user);
+	@GetMapping("logged")
+	public User isLogged() {
+		return service.isLogged();
 	}
 	
 	//@Admin
 	@GetMapping
-	public List<User> getAll() {
-		return service.getAll();
-	}
-	
-	//@Admin
-	@GetMapping("{roleName}")
-	public List<User> getAllWithRoleName(@PathVariable String roleName) {
-		return service.getAllWithRoleName(roleName);
+	public List<User> getAll(@RequestParam(required = false) String role) {
+		if (role != null) {
+			return service.getAllByRole(role);
+		} else {
+			return service.getAll();
+		}		
 	}
 	
 	//@Admin

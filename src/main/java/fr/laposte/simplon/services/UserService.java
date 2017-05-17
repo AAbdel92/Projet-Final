@@ -19,6 +19,10 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
+	public User isLogged() {
+		return null;
+	}
+	
 	public User onLogin(User user) {
 		User request = repository.findByEmail(user.getEmail());		
 		if (request.getPassword().equals(user.getPassword())) {			
@@ -44,7 +48,7 @@ public class UserService {
 		return result;
 	}
 	
-	public List<User> getAllWithRoleName(String roleName) {		
+	public List<User> getAllByRole(String roleName) {		
 		Iterable<User> request = repository.findByRoleName(roleName);
 		List<User> result = filterForListByRole(request);		
 		return result;
@@ -55,12 +59,16 @@ public class UserService {
 	}
 	
 	public User updateOne(User user) {
-		User request = repository.findByEmail(user.getEmail());
+		User request = repository.findOne(user.getId());
 		request.setPassword(user.getPassword());
 		request.setFirstname(user.getFirstname());
 		request.setLastname(user.getLastname());
-		request.setPair(user.getPair());
-		request.setPromo(user.getPromo());
+		if (user.getPair() != null) {
+			request.setPair(user.getPair());
+		}
+		if (user.getPromo() != null) {
+			request.setPromo(user.getPromo());
+		}
 		request.setRole(user.getRole());		
 		repository.save(request);
 		User result = new User();
@@ -105,22 +113,18 @@ public class UserService {
 	
 	private List<User> filterForListByRole(Iterable<User> request) {
 		List<User> result = new ArrayList<>();
-		for (User item : request) {
-			if (item.getPromo() == null) {
-				User user = new User();
-				Role role = new Role();	
-				role.setId(item.getId());
-				role.setName(item.getRole().getName());				
-				user.setRole(role);
-				user.setId(item.getId());
-				user.setFirstname(item.getFirstname());
-				user.setLastname(item.getLastname());			
-				user.setEmail(item.getEmail());
-				
-				result.add(user);
-			}
-		}
-		
+		for (User item : request) {			
+			User user = new User();
+			Role role = new Role();	
+			role.setId(item.getId());
+			role.setName(item.getRole().getName());				
+			user.setRole(role);
+			user.setId(item.getId());
+			user.setFirstname(item.getFirstname());
+			user.setLastname(item.getLastname());			
+			user.setEmail(item.getEmail());				
+			result.add(user);			
+		}		
 		return result;
 	}
 }
