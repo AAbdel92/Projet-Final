@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.laposte.simplon.models.Conclusion;
 import fr.laposte.simplon.models.Promo;
 import fr.laposte.simplon.models.Role;
 import fr.laposte.simplon.models.User;
@@ -51,6 +52,24 @@ public class UserService {
 	public List<User> getAllByRole(String roleName) {		
 		Iterable<User> request = repository.findByRoleName(roleName);
 		List<User> result = filterForListByRole(request);		
+		return result;
+	}
+	
+	public List<User> getAllByPromoAndDiary(int promoId, int diaryId) {
+		List<User> result = new ArrayList<>();
+		Iterable<User> request = repository.findByPromoId(promoId);
+		boolean filled;
+		for (User user : request) {
+			if (!user.getConclusions().isEmpty()) {
+				filled = checkingConclusions(user.getConclusions(), diaryId);
+				if (!filled) {
+					User userDTO = filteringUser(user);
+					result.add(userDTO);
+				} else {
+					continue;
+				}
+			}
+		}
 		return result;
 	}
 	
@@ -125,6 +144,25 @@ public class UserService {
 			user.setEmail(item.getEmail());				
 			result.add(user);			
 		}		
+		return result;
+	}
+	
+	private User filteringUser(User user) {
+		User userDTO = new User();
+		userDTO.setId(user.getId());
+		userDTO.setFirstname(user.getFirstname());
+		userDTO.setLastname(user.getLastname());
+		return userDTO;
+	}
+	
+	private boolean checkingConclusions(List<Conclusion> conclusions, int diaryId) {
+		boolean result = false;
+		for (Conclusion conclusion : conclusions) {
+			if (conclusion.getDiary().getId() == diaryId) {
+				result = true;
+				break;
+			}
+		}
 		return result;
 	}
 }

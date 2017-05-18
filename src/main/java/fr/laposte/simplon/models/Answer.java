@@ -27,5 +27,8 @@ public class Answer {
 	
 	@ManyToOne
 	private User user;
+	
+	@OneToOne
+	private Question question;
 
 }

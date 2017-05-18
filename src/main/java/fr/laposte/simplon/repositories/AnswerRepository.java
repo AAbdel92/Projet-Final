@@ -7,5 +7,7 @@ import fr.laposte.simplon.models.Answer;
 
 @Repository
 public interface AnswerRepository extends CrudRepository<Answer, Integer> {
+	
+	public Iterable<Answer> findByUserId(int userId);
 
 }

@@ -30,8 +30,8 @@ public class Question {
 	@ManyToOne
 	private Diary diary;
 	
-	@OneToOne
-	private Answer answer;
+//	@OneToOne
+//	private Answer answer;
 	
 	@ManyToOne
 	private Role role;

@@ -1,6 +1,8 @@
 package fr.laposte.simplon.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,17 +30,24 @@ public class DiaryController {
 	}
 	//@Formateur, @Tuteur, @Apprenant
 	@GetMapping
-	public List<Diary> getAll(@RequestParam boolean consulter,
+	public List<Diary> getAll(@RequestParam Optional<Boolean> consulter,
 								@RequestParam String userRole,
 								@RequestParam int promoId,
-								@RequestParam int studentId){
-		List<Diary> result;
-		
-		if (consulter) {			
-			result = service.getForReading(userRole, promoId, studentId);		
-			
-		} else {
-			result = service.getForEditing(userRole, promoId);
+								@RequestParam Optional<Integer> studentId,
+								@RequestParam Optional<Boolean> questions){
+		List<Diary> result = new ArrayList<>();
+		if (consulter.isPresent()) {
+			if ("formateur".equals(userRole)) {
+				result = service.getForReading(promoId);
+			} else if (studentId.isPresent()){
+				result = service.getForReading(promoId, studentId.get());
+			}
+		} else if ("formateur".equals(userRole) && questions.isPresent()){
+			result = service.getDiariesWithQuestionsByPromo(promoId);			
+		} else if ("formateur".equals(userRole)) {
+			result = service.getNewDiariesByPromo(promoId);
+		} else if (studentId.isPresent()){		
+			result = service.getDiariesWithoutConclusion(userRole, promoId, studentId.get());
 		}
 		return result;
 	}

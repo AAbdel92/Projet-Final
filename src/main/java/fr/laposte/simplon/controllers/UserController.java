@@ -1,6 +1,7 @@
 package fr.laposte.simplon.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +31,18 @@ public class UserController {
 	
 	//@Admin
 	@GetMapping
-	public List<User> getAll(@RequestParam(required = false) String role) {
-		if (role != null) {
-			return service.getAllByRole(role);
+	public List<User> getAll(@RequestParam Optional<String> role,
+								@RequestParam Optional<Integer> promoId,
+								@RequestParam Optional<Integer> diaryId) {
+		List<User> result;
+		if (role.isPresent()) {
+			result = service.getAllByRole(role.get());
+		} else if (promoId.isPresent() && diaryId.isPresent()){
+			result = service.getAllByPromoAndDiary(promoId.get(), diaryId.get());
 		} else {
-			return service.getAll();
-		}		
+			result = service.getAll();
+		}
+		return result;
 	}
 	
 	//@Admin
