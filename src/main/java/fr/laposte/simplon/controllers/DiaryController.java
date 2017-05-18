@@ -47,7 +47,7 @@ public class DiaryController {
 		} else if ("formateur".equals(userRole)) {
 			result = service.getNewDiariesByPromo(promoId);
 		} else if (studentId.isPresent()){		
-			result = service.getDiariesWithoutConclusion(userRole, promoId, studentId.get());
+			result = service.getDiariesToEditByStudentId(userRole, promoId, studentId.get());
 		}
 		return result;
 	}
