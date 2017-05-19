@@ -57,82 +57,14 @@ public class DiaryService {
 		return result;
 	}
 	
-//	public List<Diary> getForEditing(String userRole, int promoId) {
-//		Iterable<Diary> request = repository.findByPromoId(promoId);
-//		List<Diary> result;
-//		if ("formateur".equals(userRole)) {
-//			result = filterForFormateur(request);
-//		} else {
-//			result = filterForOtherRole(userRole, request);
-//		} 
-//		
-//		return result;
-//	}
-	
 	public List<Diary> getForReading(int promoId) {		
 		Iterable<Diary> request = repository.findByPromoId(promoId);					
 		return filteringDiariesForFormateurRead(request);
 	}
 	public List<Diary> getForReading(int promoId, int studentId) {
 		Iterable<Diary> request = repository.findByPromoId(promoId);		
-		return filteringDiariesForOtherRead(request, studentId);
+		return filteringDiariesForOtherToRead(request, studentId);
 	}
-	
-//	private List<Diary> filterForFormateur(Iterable<Diary> request) {
-//		List<Diary> result = new ArrayList<>();		
-//			for (Diary item : request) {				
-//				if (item.getConclusions().isEmpty() && !item.getQuestions().isEmpty()) {					
-//						
-//						Diary diaryDTO = new Diary();
-//						List<Question> questionsDTO = new ArrayList<>();
-//						for (Question question : item.getQuestions()) {
-//							if (question.getAnswer() != null) {								
-//								diaryDTO = filteringDiary(item);	
-//								Question questionDTO = new Question();
-//								questionDTO.setId(question.getId());
-//								questionDTO.setContent(question.getContent());							
-//								Answer answerDTO = new Answer();
-//								answerDTO.setId(question.getAnswer().getId());
-//								answerDTO.setContent(question.getAnswer().getContent());
-//								User userDTO = new User();
-//								userDTO.setId(question.getAnswer().getUser().getId());
-//								userDTO.setFirstname(question.getAnswer().getUser().getFirstname());
-//								userDTO.setLastname(question.getAnswer().getUser().getLastname());
-//								answerDTO.setUser(userDTO);
-//								questionDTO.setAnswer(answerDTO);
-//								questionsDTO.add(questionDTO);
-//								if (!questionsDTO.isEmpty()) {
-//									diaryDTO.setQuestions(questionsDTO);
-//									}
-//								
-//							}							
-//						}	
-//						if (diaryDTO.getName() != null) {
-//							result.add(diaryDTO);
-//						}
-//				} else if (item.getQuestions().isEmpty()){
-//					Diary diaryDTO = filteringDiary(item);
-//					result.add(diaryDTO);
-//				}
-//			}		
-//		return result;
-//	}
-//	
-//	private List<Diary> filterForOtherRole(String roleName, Iterable<Diary> request) {
-//		List<Diary> result = new ArrayList<>();
-//		for (Diary item : request) {
-//			for (Question question : item.getQuestions()) {
-//				if (roleName.equals(question.getRole().getName()) && question.getAnswer() == null) {
-//					Diary diaryDTO = filteringDiary(item);
-//					
-//					result.add(diaryDTO);
-//					break;
-//				}
-//			}
-//		}
-//		
-//		return result;
-//	}
 	
 	private List<Conclusion> filteringConclusionsForFormateur(List<Conclusion> conclusions) {
 		List<Conclusion> result = new ArrayList<>();
@@ -167,7 +99,7 @@ public class DiaryService {
 		return result;
 	}
 	
-	private List<Diary> filteringDiariesForOtherRead(Iterable<Diary> request, int studentId) {
+	private List<Diary> filteringDiariesForOtherToRead(Iterable<Diary> request, int studentId) {
 		List<Diary> result = new ArrayList<>();
 		for (Diary diary : request) {
 			if (!diary.getConclusions().isEmpty()) {

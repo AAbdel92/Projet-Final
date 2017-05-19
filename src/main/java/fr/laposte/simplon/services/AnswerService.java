@@ -24,8 +24,19 @@ public class AnswerService {
 		if (result.size() == 10) {
 			return result;
 		} else {
-			return null;
-		}		
+			result = new ArrayList<>();			
+		}
+		return result;
+	}
+	
+	public List<Answer> saveAll(List<Answer> answers) {
+		List<Answer> result = new ArrayList<>();
+		Iterable<Answer> request = repository.save(answers);
+		for (Answer answer : request) {
+			Answer answerDTO = filteringAnswer(answer);
+			result.add(answerDTO);
+		}
+		return result;
 	}
 	
 	private List<Answer> filteringRequest(Iterable<Answer> answers, int diaryId) {
@@ -38,6 +49,13 @@ public class AnswerService {
 				result.add(answerDTO);
 			}
 		}
+		return result;
+	}
+	
+	private Answer filteringAnswer(Answer answer) {
+		Answer result = new Answer();
+		result.setId(answer.getId());
+		result.setContent(answer.getContent());
 		return result;
 	}
 

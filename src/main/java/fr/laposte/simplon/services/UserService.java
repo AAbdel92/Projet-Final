@@ -20,8 +20,15 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public User isLogged() {
-		return null;
+	public User isLogged(User user) {
+		User result;
+		User request = repository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+		if (request != null) {
+			result = filteringCompleteUser(request);
+		} else {
+			result = null;
+		}
+		return result;
 	}
 	
 	public User onLogin(User user) {
@@ -153,6 +160,22 @@ public class UserService {
 		userDTO.setFirstname(user.getFirstname());
 		userDTO.setLastname(user.getLastname());
 		return userDTO;
+	}
+	
+	private User filteringCompleteUser(User user) {
+		User result = filteringUser(user);
+		result.setEmail(user.getEmail());
+		Promo promoDTO = new Promo();
+		if (user.getPromo() != null) {
+			promoDTO.setId(user.getPromo().getId());
+			promoDTO.setName(user.getPromo().getName());
+			result.setPromo(promoDTO);
+		}
+		Role roleDTO = new Role();
+		roleDTO.setId(user.getRole().getId());
+		roleDTO.setName(user.getRole().getName());
+		result.setRole(roleDTO);
+		return result;
 	}
 	
 	private boolean checkingConclusions(List<Conclusion> conclusions, int diaryId) {
