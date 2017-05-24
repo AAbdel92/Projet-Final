@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.laposte.simplon.models.Question;
 import fr.laposte.simplon.services.QuestionService;
 
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("api/questions")
 public class QuestionController {

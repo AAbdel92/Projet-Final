@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.laposte.simplon.models.Conclusion;
 import fr.laposte.simplon.services.ConclusionService;
 
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("api/conclusions")
 public class ConclusionController {

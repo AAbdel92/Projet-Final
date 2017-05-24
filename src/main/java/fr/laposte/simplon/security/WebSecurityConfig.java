@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests().antMatchers("/api/**").authenticated();
 		http.csrf().disable();
 		http.exceptionHandling().authenticationEntryPoint(authEntryPoint);
-		http.formLogin().successHandler(authSuccessHandler);
+		http.formLogin().usernameParameter("email").successHandler(authSuccessHandler);
         http.formLogin().failureHandler(authFailHandler);	
         http.logout().logoutSuccessHandler(logoutSuccessHandler);        
 	}

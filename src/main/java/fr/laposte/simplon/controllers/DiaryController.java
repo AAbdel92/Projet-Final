@@ -17,7 +17,7 @@ import fr.laposte.simplon.models.Diary;
 import fr.laposte.simplon.models.User;
 import fr.laposte.simplon.services.DiaryService;
 
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("api/diaries")
 public class DiaryController {

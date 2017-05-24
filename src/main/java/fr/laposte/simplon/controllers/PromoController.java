@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.laposte.simplon.models.Promo;
 import fr.laposte.simplon.services.PromoService;
 
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("api/promos")
 public class PromoController {
