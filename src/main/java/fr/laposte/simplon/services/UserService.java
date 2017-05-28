@@ -164,12 +164,20 @@ public class UserService {
 	
 	private User filteringCompleteUser(User user) {
 		User result = filteringUser(user);
-		result.setEmail(user.getEmail());
-		Promo promoDTO = new Promo();
+		result.setEmail(user.getEmail());		
 		if (user.getPromo() != null) {
+			Promo promoDTO = new Promo();
 			promoDTO.setId(user.getPromo().getId());
 			promoDTO.setName(user.getPromo().getName());
 			result.setPromo(promoDTO);
+		}
+		if (user.getPair() != null) {
+			User pairDTO = filteringUser(user.getPair());
+			Promo pairPromoDTO = new Promo();
+			pairPromoDTO.setId(user.getPair().getPromo().getId());
+			pairPromoDTO.setName(user.getPair().getPromo().getName());
+			pairDTO.setPromo(pairPromoDTO);
+			result.setPair(pairDTO);
 		}
 		Role roleDTO = new Role();
 		roleDTO.setId(user.getRole().getId());
