@@ -69,7 +69,7 @@ public class UserService {
 		for (User user : request) {
 			if (!user.getConclusions().isEmpty()) {
 				filled = checkingConclusions(user.getConclusions(), diaryId);
-				if (!filled) {
+				if (filled) {
 					User userDTO = filteringUser(user);
 					result.add(userDTO);
 				} else {
