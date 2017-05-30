@@ -17,5 +17,4 @@ public class ConclusionService {
 	public Conclusion saveOne(Conclusion conclusion) {
 		return repository.save(conclusion);
 	}
-
 }

@@ -22,5 +22,4 @@ public class ConclusionController {
 	public Conclusion saveOne(@RequestBody Conclusion conclusion) {
 		return service.saveOne(conclusion);
 	}
-
 }
